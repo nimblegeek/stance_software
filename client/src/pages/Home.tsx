@@ -3,12 +3,12 @@ import ClubCard from "../components/ClubCard";
 import SearchBar from "../components/SearchBar";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useState } from "react";
-import type { Club } from "@db/schema";
+import type { Club, Session } from "@db/schema";
 
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState("");
   
-  const { data: clubs, isLoading } = useQuery<Club[]>({
+  const { data: clubs, isLoading } = useQuery<(Club & { upcomingSessions: Session[] })[]>({
     queryKey: ["clubs"],
     queryFn: async () => {
       const response = await fetch("/api/clubs");

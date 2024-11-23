@@ -4,11 +4,21 @@ import { clubs, sessions } from "@db/schema";
 import { eq } from "drizzle-orm";
 
 export function registerRoutes(app: Express) {
-  // Get all clubs
+  // Get all clubs with their upcoming sessions
   app.get("/api/clubs", async (req, res) => {
     try {
       const allClubs = await db.select().from(clubs);
-      res.json(allClubs);
+      const clubsWithSessions = await Promise.all(
+        allClubs.map(async (club) => {
+          const upcomingSessions = await db
+            .select()
+            .from(sessions)
+            .where(eq(sessions.clubId, club.id))
+            .limit(2);
+          return { ...club, upcomingSessions };
+        })
+      );
+      res.json(clubsWithSessions);
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch clubs" });
     }
