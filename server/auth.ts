@@ -1,13 +1,5 @@
 import { Request, Response, NextFunction } from "express";
 import { db } from "../db";
-
-declare global {
-  namespace Express {
-    interface Request {
-      user?: { userId: number };
-    }
-  }
-}
 import { users, loginSchema } from "@db/schema";
 import { eq } from "drizzle-orm";
 import bcrypt from "bcryptjs";
