@@ -3,8 +3,14 @@ import { db } from "../db";
 import { clubs, sessions, insertClubSchema } from "@db/schema";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
+import { register, login } from "./auth";
+import express from "express";
 
 export function registerRoutes(app: Express) {
+  // Auth routes
+  app.post("/api/auth/register", register);
+  app.post("/api/auth/login", login);
+
   /**
    * @api {get} /api/clubs Get all clubs
    * @apiName GetClubs
