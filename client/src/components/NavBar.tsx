@@ -12,7 +12,7 @@ export default function NavBar() {
             Stance
           </span>
         </Link>
-        
+
         {/* Mobile Menu Button */}
         <button
           className="md:hidden p-2 text-gray-600 hover:text-primary"
@@ -40,17 +40,26 @@ export default function NavBar() {
         <nav className="hidden md:block">
           <ul className="flex items-center gap-6">
             <li>
-              <Link href="/clubs" className="text-sm font-medium hover:text-primary">
-                All Clubs
+              <Link
+                href="/clubs"
+                className="text-sm font-medium hover:text-primary"
+              >
+                Clubs
               </Link>
             </li>
             <li>
-              <Link href="/schedule" className="text-sm font-medium hover:text-primary">
-                Schedule
+              <Link
+                href="/openmats"
+                className="text-sm font-medium hover:text-primary"
+              >
+                Open Mats
               </Link>
             </li>
             <li>
-              <Link href="/auth" className="text-sm font-medium hover:text-primary">
+              <Link
+                href="/auth"
+                className="text-sm font-medium hover:text-primary"
+              >
                 Login
               </Link>
             </li>
@@ -60,7 +69,7 @@ export default function NavBar() {
         {/* Mobile Navigation */}
         <nav
           className={`${
-            isMenuOpen ? 'block' : 'hidden'
+            isMenuOpen ? "block" : "hidden"
           } md:hidden absolute top-16 left-0 right-0 bg-white border-b shadow-lg`}
         >
           <ul className="flex flex-col py-4">
