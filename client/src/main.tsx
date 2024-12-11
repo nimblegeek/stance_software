@@ -8,6 +8,7 @@ import { Toaster } from "@/components/ui/toaster";
 import Home from "./pages/Home";
 import AllClubs from "./pages/AllClubs";
 import ClubDetail from "./pages/ClubDetail";
+import Auth from "./pages/Auth";
 import NavBar from "./components/NavBar";
 
 function Router() {
@@ -17,6 +18,7 @@ function Router() {
       <main className="container mx-auto px-4 py-8">
         <Switch>
           <Route path="/" component={Home} />
+          <Route path="/auth" component={Auth} />
           <Route path="/clubs" component={AllClubs} />
           <Route path="/club/:id" component={ClubDetail} />
           <Route>404 Page Not Found</Route>

@@ -54,6 +54,11 @@ export default function NavBar() {
                 Schedule
               </Link>
             </li>
+            <li>
+              <Link href="/auth" className="text-sm font-medium hover:text-primary">
+                Login
+              </Link>
+            </li>
           </ul>
         </nav>
 

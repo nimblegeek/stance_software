@@ -10,6 +10,7 @@ export const users = pgTable("users", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
   isVerified: boolean("is_verified").default(false).notNull(),
+  homeClubId: integer("home_club_id").references(() => clubs.id),
 });
 
 export const clubs = pgTable("clubs", {
