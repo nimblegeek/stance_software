@@ -5,6 +5,16 @@ import { eq } from "drizzle-orm";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
+declare global {
+  namespace Express {
+    interface Request {
+      user?: {
+        userId: number;
+      }
+    }
+  }
+}
+
 if (!process.env.JWT_SECRET) {
   throw new Error("JWT_SECRET environment variable is required");
 }
