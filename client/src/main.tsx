@@ -5,6 +5,7 @@ import "./index.css";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./lib/queryClient";
 import { Toaster } from "@/components/ui/toaster";
+import NavBar from "./components/NavBar";
 import Home from "./pages/Home";
 import Auth from "./pages/Auth";
 import ClubDetail from "./pages/ClubDetail";
