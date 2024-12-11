@@ -1,14 +1,11 @@
+
 import { useQuery } from "@tanstack/react-query";
 import ClubCard from "../components/ClubCard";
-import SearchBar from "../components/SearchBar";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useState } from "react";
 import type { Club, Session } from "@db/schema";
 import { Link } from "wouter";
 
 export default function Home() {
-  const [searchTerm, setSearchTerm] = useState("");
-
   const { data: clubs, isLoading } = useQuery<
     (Club & { upcomingSessions: Session[] })[]
   >({
@@ -20,24 +17,18 @@ export default function Home() {
     },
   });
 
-  const filteredClubs = clubs
-    ?.filter(
-      (club) =>
-        club.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        club.address.toLowerCase().includes(searchTerm.toLowerCase()),
-    )
-    .slice(0, 4);
+  const displayedClubs = clubs?.slice(0, 4);
 
   return (
     <div className="space-y-12">
       {/* Hero Section */}
       <div className="text-center space-y-6 py-16 bg-secondary/20 rounded-lg px-4">
         <h1 className="text-5xl font-bold tracking-tight">
-          Unlock The Power Of Your Jiujitsu Club{" "}
+          Unlock The Power Of Your Jiujitsu Community{" "}
         </h1>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-          Manage your class bookings with an automated administration flow and
-          enable your members to pay with ease.{" "}
+          Manage class bookings with an automated administration flow and enable
+          your members to pay with ease.{" "}
         </p>
       </div>
 
@@ -56,8 +47,6 @@ export default function Home() {
           </Link>
         </div>
 
-        <SearchBar value={searchTerm} onChange={setSearchTerm} />
-
         {isLoading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[...Array(3)].map((_, i) => (
@@ -66,7 +55,7 @@ export default function Home() {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredClubs?.map((club) => (
+            {displayedClubs?.map((club) => (
               <ClubCard key={club.id} club={club} />
             ))}
           </div>
