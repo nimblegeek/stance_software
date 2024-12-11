@@ -26,8 +26,8 @@ export default function OpenMats() {
   return (
     <div className="space-y-8">
       <div className="space-y-4">
-        <h1 className="text-4xl font-bold tracking-tight">Available Open Mats</h1>
-        <p className="text-muted-foreground">Find and book open mat sessions across all clubs.</p>
+        <h1 className="text-4xl font-bold tracking-tight text-center">Explore Open Mat Sessions</h1>
+        <p className="text-muted-foreground text-center">Browse and select sessions that fit your schedule.</p>
       </div>
 
       {isLoading ? (
@@ -37,25 +37,22 @@ export default function OpenMats() {
           ))}
         </div>
       ) : (
-        <div className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {allSessions?.map((session) => (
-            <Link key={session.id} href={`/club/${session.clubId}`}>
-              <div className="border rounded-lg p-4 hover:bg-secondary/20 transition-colors cursor-pointer">
+            <Link key={session.id} href={`/club/${session.clubId}`} className="block hover:block">
+              <div className="border rounded-lg p-4 hover:bg-secondary/20 transition-colors cursor-pointer shadow-md">
                 <div className="flex justify-between items-start">
                   <div>
-                    <div className="font-semibold text-lg">{session.clubName}</div>
+                    <div className="font-semibold text-lg">{session.clubName} - {format(new Date(session.date), "EEE, MMM d")}</div>
                     <div className="font-medium text-primary">
-                      {format(new Date(session.date), "EEE, MMM d")}
-                    </div>
-                    <div className="text-sm text-muted-foreground">
                       {format(new Date(session.startTime), "h:mm a")} - {format(new Date(session.endTime), "h:mm a")}
                     </div>
-                  </div>
-                  <div className="text-right">
-                    <div className="font-medium">${(session.price / 100).toFixed(2)}</div>
                     <div className="text-sm text-muted-foreground">
                       {session.maxCapacity - session.currentCapacity} spots left
                     </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="font-medium text-lg">${(session.price / 100).toFixed(2)}</div>
                   </div>
                 </div>
               </div>
