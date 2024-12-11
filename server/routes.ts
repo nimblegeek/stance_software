@@ -3,6 +3,14 @@ import { db } from "../db";
 import { clubs, sessions, insertClubSchema } from "@db/schema";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
+import express from "express";
+import { register, login } from "./auth"; // Placeholder functions
+
+const router = express.Router();
+
+router.post("/auth/register", register);
+router.post("/auth/login", login);
+
 
 export function registerRoutes(app: Express) {
   /**
@@ -149,3 +157,12 @@ export function registerRoutes(app: Express) {
     }
   });
 }
+
+// Placeholder authentication functions
+const register = (req: express.Request, res: express.Response) => {
+  res.status(201).json({ message: "User registered (placeholder)" });
+};
+
+const login = (req: express.Request, res: express.Response) => {
+  res.json({ message: "User logged in (placeholder)", token: "fake-token" });
+};
