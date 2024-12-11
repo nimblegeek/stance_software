@@ -40,13 +40,8 @@ export default function NavBar() {
         <nav className="hidden md:block">
           <ul className="flex items-center gap-6">
             <li>
-              <Link href="/" className="text-sm font-medium hover:text-primary">
-                Find Open Mats
-              </Link>
-            </li>
-            <li>
               <Link href="/clubs" className="text-sm font-medium hover:text-primary">
-                Clubs
+                All Clubs
               </Link>
             </li>
             <li>
@@ -71,20 +66,11 @@ export default function NavBar() {
           <ul className="flex flex-col py-4">
             <li>
               <Link
-                href="/"
-                className="block px-4 py-2 text-sm font-medium hover:bg-gray-50 hover:text-primary"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Find Open Mats
-              </Link>
-            </li>
-            <li>
-              <Link
                 href="/clubs"
                 className="block px-4 py-2 text-sm font-medium hover:bg-gray-50 hover:text-primary"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Clubs
+                All Clubs
               </Link>
             </li>
             <li>
