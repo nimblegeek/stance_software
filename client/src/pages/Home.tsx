@@ -1,4 +1,3 @@
-
 import { useQuery } from "@tanstack/react-query";
 import ClubCard from "../components/ClubCard";
 import SearchBar from "../components/SearchBar";
@@ -9,8 +8,10 @@ import { Link } from "wouter";
 
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState("");
-  
-  const { data: clubs, isLoading } = useQuery<(Club & { upcomingSessions: Session[] })[]>({
+
+  const { data: clubs, isLoading } = useQuery<
+    (Club & { upcomingSessions: Session[] })[]
+  >({
     queryKey: ["clubs"],
     queryFn: async () => {
       const response = await fetch("/api/clubs");
@@ -19,21 +20,24 @@ export default function Home() {
     },
   });
 
-  const filteredClubs = clubs?.filter(club =>
-    club.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    club.address.toLowerCase().includes(searchTerm.toLowerCase())
-  ).slice(0, 3);
+  const filteredClubs = clubs
+    ?.filter(
+      (club) =>
+        club.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        club.address.toLowerCase().includes(searchTerm.toLowerCase()),
+    )
+    .slice(0, 4);
 
   return (
     <div className="space-y-12">
       {/* Hero Section */}
       <div className="text-center space-y-6 py-16 bg-secondary/20 rounded-lg px-4">
         <h1 className="text-5xl font-bold tracking-tight">
-          Simplify Your Gym Management
+          Unlock The Power Of Your Jiujitsu Club{" "}
         </h1>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-          Streamline bookings, payments, and member management for gym owners. 
-          Members can easily book sessions and manage their schedules all in one place.
+          Manage your class bookings with an automated administration flow and
+          enable your members to pay with ease.{" "}
         </p>
       </div>
 
