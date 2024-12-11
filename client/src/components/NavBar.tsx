@@ -57,7 +57,7 @@ export default function NavBar() {
             </li>
             <li>
               <Link
-                href="/auth"
+                href="/Auth"
                 className="text-sm font-medium hover:text-primary"
               >
                 Login
