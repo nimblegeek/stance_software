@@ -84,11 +84,20 @@ export default function NavBar() {
             </li>
             <li>
               <Link
-                href="/schedule"
+                href="/openmats"
                 className="block px-4 py-2 text-sm font-medium hover:bg-gray-50 hover:text-primary"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Schedule
+                Open Mats
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/Auth"
+                className="block px-4 py-2 text-sm font-medium hover:bg-gray-50 hover:text-primary"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Login
               </Link>
             </li>
           </ul>
