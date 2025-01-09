@@ -44,7 +44,7 @@ export async function register(req: Request, res: Response) {
         email,
         hashedPassword,
         name,
-        isVerified: false,
+        isVerified: false
       })
       .returning({
         id: users.id,
