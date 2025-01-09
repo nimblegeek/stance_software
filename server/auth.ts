@@ -44,8 +44,7 @@ export async function register(req: Request, res: Response) {
         email,
         hashedPassword,
         name,
-        isVerified: false,
-        homeClubId: null,
+        isVerified: false
       })
       .returning({
         id: users.id,
