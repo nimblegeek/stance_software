@@ -23,13 +23,17 @@ export default function Auth() {
         body: JSON.stringify(isLogin ? { email, password } : { email, password, name }),
       });
 
+      const data = await response.json();
+      
       if (response.ok) {
-        const data = await response.json();
         localStorage.setItem("token", data.token);
         setLocation("/clubs");
+      } else {
+        alert(data.message || "Authentication failed");
       }
     } catch (error) {
       console.error("Auth error:", error);
+      alert("An error occurred during authentication");
     }
   };
 

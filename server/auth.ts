@@ -34,6 +34,9 @@ export async function register(req: Request, res: Response) {
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    // Create verification token
+    const verificationToken = jwt.sign({ email }, JWT_SECRET, { expiresIn: "24h" });
+
     // Create user
     const [newUser] = await db
       .insert(users)
@@ -56,7 +59,13 @@ export async function register(req: Request, res: Response) {
       expiresIn: "7d",
     });
 
-    res.status(201).json({ user: newUser, token });
+    // TODO: Send verification email here
+    // For now, we'll auto-verify the user
+    await db.update(users)
+      .set({ isVerified: true })
+      .where(eq(users.id, newUser.id));
+
+    res.status(201).json({ user: { ...newUser, isVerified: true }, token });
   } catch (error) {
     console.error("Registration error:", error);
     res.status(500).json({ message: "Failed to register user" });
@@ -84,6 +93,11 @@ export async function login(req: Request, res: Response) {
     const isValidPassword = await bcrypt.compare(password, user.hashedPassword);
     if (!isValidPassword) {
       return res.status(401).json({ message: "Invalid credentials" });
+    }
+
+    // Check if user is verified
+    if (!user.isVerified) {
+      return res.status(403).json({ message: "Please verify your email address" });
     }
 
     // Generate JWT token
