@@ -154,4 +154,48 @@ export function registerRoutes(app: Express) {
       res.status(500).json({ error: "Failed to fetch sessions" });
     }
   });
+
+  /**
+   * @api {post} /api/sessions/:id/book Book a session
+   * @apiName BookSession
+   * @apiGroup Sessions
+   */
+  app.post("/api/sessions/:id/book", async (req, res) => {
+    try {
+      const sessionId = parseInt(req.params.id);
+      const { name, email, phone } = req.body;
+
+      // Start transaction
+      const booking = await db.transaction(async (tx) => {
+        // Check capacity
+        const [session] = await tx
+          .select()
+          .from(sessions)
+          .where(eq(sessions.id, sessionId));
+
+        if (!session || session.currentCapacity >= session.maxCapacity) {
+          throw new Error("Session is full");
+        }
+
+        // Create booking
+        const [newBooking] = await tx
+          .insert(bookings)
+          .values({ sessionId, name, email, phone })
+          .returning();
+
+        // Update session capacity
+        await tx
+          .update(sessions)
+          .set({ currentCapacity: session.currentCapacity + 1 })
+          .where(eq(sessions.id, sessionId));
+
+        return newBooking;
+      });
+
+      res.status(201).json(booking);
+    } catch (error) {
+      console.error("Error booking session:", error);
+      res.status(500).json({ error: "Failed to book session" });
+    }
+  });
 }

@@ -56,6 +56,20 @@ export const selectUserSchema = createSelectSchema(users);
 export type InsertUser = z.infer<typeof insertUserSchema>;
 export type User = z.infer<typeof selectUserSchema>;
 
+export const bookings = pgTable("bookings", {
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  sessionId: integer("session_id").references(() => sessions.id),
+  name: text("name").notNull(),
+  email: text("email"),
+  phone: text("phone"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const insertBookingSchema = createInsertSchema(bookings);
+export const selectBookingSchema = createSelectSchema(bookings);
+export type InsertBooking = z.infer<typeof insertBookingSchema>;
+export type Booking = z.infer<typeof selectBookingSchema>;
+
 // Login schema (for validation only, not DB)
 export const loginSchema = z.object({
   email: z.string().email(),

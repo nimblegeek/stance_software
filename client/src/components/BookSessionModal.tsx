@@ -41,12 +41,26 @@ export default function BookSessionModal({
       return;
     }
 
-    // TODO: Implement actual booking logic with contact details
-    toast({
-      title: "Session booked!",
-      description: "You have successfully booked this session.",
+    fetch(`/api/sessions/${session.id}/book`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, phone })
+    })
+    .then(res => {
+      if (!res.ok) throw new Error('Booking failed');
+      toast({
+        title: "Session booked!",
+        description: "You have successfully booked this session.",
+      });
+      onOpenChange(false);
+    })
+    .catch(err => {
+      toast({
+        title: "Booking failed",
+        description: "Please try again later.",
+        variant: "destructive"
+      });
     });
-    onOpenChange(false);
   };
 
   return (
