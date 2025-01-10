@@ -1,4 +1,7 @@
+
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Dialog,
   DialogContent,
@@ -23,10 +26,22 @@ export default function BookSessionModal({
   onOpenChange,
 }: BookSessionModalProps) {
   const { toast } = useToast();
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [name, setName] = useState("");
   const availableSpots = session.maxCapacity - session.currentCapacity;
 
   const handleBooking = () => {
-    // TODO: Implement actual booking logic
+    if (!email && !phone) {
+      toast({
+        title: "Contact details required",
+        description: "Please provide either an email or phone number.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // TODO: Implement actual booking logic with contact details
     toast({
       title: "Session booked!",
       description: "You have successfully booked this session.",
@@ -40,7 +55,7 @@ export default function BookSessionModal({
         <DialogHeader>
           <DialogTitle>Book Open Mat Session</DialogTitle>
           <DialogDescription>
-            Confirm your booking for this open mat session.
+            Enter your contact details to book this session.
           </DialogDescription>
         </DialogHeader>
         <div className="space-y-4 py-4">
@@ -65,6 +80,27 @@ export default function BookSessionModal({
                 {availableSpots} of {session.maxCapacity}
               </p>
             </div>
+          </div>
+          <div className="space-y-2">
+            <h4 className="font-medium">Contact Information</h4>
+            <Input
+              placeholder="Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+            <Input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <Input
+              type="tel"
+              placeholder="Phone Number"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+            />
           </div>
         </div>
         <DialogFooter>

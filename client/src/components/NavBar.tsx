@@ -55,14 +55,6 @@ export default function NavBar() {
                 Open Mats
               </Link>
             </li>
-            <li>
-              <Link
-                href="/Auth"
-                className="text-sm font-medium hover:text-primary"
-              >
-                Login
-              </Link>
-            </li>
           </ul>
         </nav>
 
@@ -89,15 +81,6 @@ export default function NavBar() {
                 onClick={() => setIsMenuOpen(false)}
               >
                 Open Mats
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/Auth"
-                className="block px-4 py-2 text-sm font-medium hover:bg-gray-50 hover:text-primary"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Login
               </Link>
             </li>
           </ul>
