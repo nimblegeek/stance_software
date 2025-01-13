@@ -1,6 +1,6 @@
 import type { Express } from "express";
 import { db } from "../db";
-import { clubs, sessions, insertClubSchema } from "@db/schema";
+import { clubs, sessions, bookings, insertClubSchema } from "@db/schema";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
 import { register, login } from "./auth";
